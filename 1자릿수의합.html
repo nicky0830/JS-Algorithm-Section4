@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+    function solution(s){
+        let str="", sum =0, max = Number.MIN_SAFE_INTEGER;
+        for(let x of s){  
+            str = String(x); 
+            sum = str[0]+str[1]+str[2];
+            if(sum>max){ 
+                max = sum; 
+                answer=x; 
+            }
+            else if(sum===max){ 
+                if(x>answer)answer;
+            }
+        }
+    }
+
+    //쌤 풀이1
+    function solution(n, arr){ 
+        let answer, max = Number.MIN_SAFE_INTEGER;
+        for(let x of arr){ 
+            let sum=0, tmp=x; 
+            while(tmp){ //x값이 있는 동안에는
+                sum+=(tmp%10); //sum에 tmp를 10으로 나눈 나머지를 더한다
+                tmp=Math.floor(tmp/10); //다음 자리수를 구하기 위해 10으로 나눈 값 floor
+            }
+            if(sum>max){ //sum이 max보다 크면 대체하고 answer 대체 
+                max=sum;
+                answer=x;
+            }
+            else if(sum === max){ 
+                if(answer < x) answer=x; 
+            }
+        }
+        return answer;
+    }
+
+    //쌤 풀이2
+    function solution(arr){
+                let answer, max=Number.MIN_SAFE_INTEGER;
+                for(let x of arr){
+                    let sum=x.toString().split('').reduce((a, b)=>a+Number(b), 0);
+                    // x가 int로 인식되면 split 불가능. 그러므로 string으로 바꿔서 split
+                    //왜 split하는 거지? (각 숫자의 자릿수 하나하나를 split하는 것)
+                    if(sum>max){
+                        max=sum;
+                        answer=x;
+                    }
+                    else if(sum===max){
+                        if(x>answer) answer=x;
+                    }
+                }
+                return answer;
+            }
+
+        // function solution(s){ 
+        //     let answer ="", max = Number.MIN_SAFE_INTEGER;
+        //     for(let x of s){ 
+        //         sum = x.toString().split().reduce((a,Number(b)), 0);
+        //     if (sum>max){
+        //         max = sum; 
+        //         answer =x;
+        //     }
+        //     else if(sum === max){ 
+        //         if(answer<x) answer =x;
+        //     }
+        //     }
+        // }
+
+    let arr=[128, 460, 603, 40, 521, 137, 123];
+    console.log(solution(arr));
+    </script> 
+
+    
+</body>
+</html>
