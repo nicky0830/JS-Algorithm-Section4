@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+    //1~100사이 자연수 n장 : 같은 숫자 카드 여러장 
+    //이중 3장 뽑아 각 카드에 적힌 수를 합한 값 기록
+    //K번째 큰 수  
+    //배열.includes(요소) : true/ false로 값이 나온다 
+    //중복 없는 반복문: i, j=i+1, k=j+1..
+    //.Array.from(배열로 만들 것)
+        //오예 내가 풀었다!!
+    function solution(n,k,arr){ 
+        let max = 0, sum=0, answer =[];
+        for(let i=0; i<arr.length; i++){ 
+        for(let j=0; j<arr.length; j++){
+        for(let k=0; k<arr.length; k++){
+        if(i!==j && j!==k && k!==i){
+            sum = arr[i]+arr[j]+arr[k];
+            if(!answer.includes(sum))answer.push(sum);
+            answer.sort((a,b)=>b-a);
+        }
+                    
+                }
+            }
+        } return answer[k-1];
+
+    }
+
+    //쌤 풀이
+
+    function solution(n, k, card){
+                let answer;
+                let tmp = new Set(); //set을 만들고 
+                for(let i=0; i<n; i++){//i, j, k가 중복되면 안되는데 0일 때
+                    for(let j=i+1; j<n; j++){ //1일 때
+                        for(let k=j+1; k<n; k++){ //2~n-1까지
+                            tmp.add(card[i]+card[j]+card[k]);//중복 없이 set에 추가 
+                        }
+                    }
+                }
+                let a=Array.from(tmp).sort((a, b)=>b-a);//tmp를 배열로 만들고 내림차순
+                answer=a[k-1];
+                return answer;
+            }
+            
+
+    let arr=[13, 15, 34, 23, 45, 65, 33, 11, 26, 42];
+    console.log(solution(10, 3, arr));
+    </script>
+</body>
+</html>
