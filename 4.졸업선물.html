@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //sort()에 대한 설명 
+        //: sort(compareFunction(a,b){a,b관련식 -  }: 배열의 요소를 a,b 2개씩 반복해서 보낸 뒤, 
+        //compareFunction이 반환하는 값을 기준으로 정렬. 반환 값이 음수면 a가 먼저, 같으면 순서 안 바꾸고 양수면 b가 먼저)
+    // function solution(arr){ 
+    //     let answer =[], cnt=0, dab;
+    //     for(let i=0;i<arr.length;i++){ 
+    //       let num = arr[i][0]*1/2 + arr[i][1];
+    //       answer.push(num);
+    //     }
+    //     let sum = answer.reduce((a,b)=>a+b,0), x = Math.max(...answer);
+    //     while((sum-x)>arr[0][1]){ 
+    //         answer.pop(x);
+    //         x = Math.max(...answer);
+    //         cnt ++;
+    //     }
+    //     dab =  arr.length - cnt;
+    //     return dab;
+    // }
+
+    
+    // let arr=[[6, 6], [2, 2], [4, 3], [4, 5], [10, 3]];
+    //         console.log(solution(arr));
+
+    //         //쌤 풀이 
+            function solution(m, product){
+                let answer=0;
+                let n=product.length;
+                product.sort((a, b)=>(a[0]+a[1])-(b[0]+b[1])); //물건값 + 배송비의 합으로 오름차순
+                //합이 작은 값부터 사면 더 많이 살 수 있으니까 
+                for(let i=0; i<n; i++){
+                    let money=m-(product[i][0]/2+product[i][1]); ///2식으로 표현하는구나! / 예산에서 물건+배송비의 합을 빼는게 money
+                    let cnt=1;
+                    for(let j=0; j<n; j++){
+                        if(j!==i && (product[j][0]+product[j][1])>money) break; //다른 학생의 물건과 배송값의 합이 남은 예산보다 크면 나간다 
+                        if(j!==i && (product[j][0]+product[j][1])<=money){ //작으면 해당 값을 빼고
+                            money-=(product[j][0]+product[j][1]);
+                            cnt++; //한번 더한다 
+                        }
+                    }
+                    answer=Math.max(answer, cnt); //왜 굳이 가만이 있는 answer를 움직이는 거지
+                }  
+                return answer;
+            }
+            
+            let arr=[[6, 6], [2, 2], [4, 3], [4, 5], [10, 3]];
+            console.log(solution(28, arr));
+    </script>
+    
+</body>
+</html>
+</body>
+</html>
