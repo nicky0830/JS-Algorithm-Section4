@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+    // 문자열 reverse된다./함수가 아니라 걍 .length
+    //각 숫자를 
+    // (1)string 
+    // (2)뒤집
+    //1)reverse(아마 배열이 아니라 안될 듯) 2)""에 뒤에서부터 추가
+    // (3)숫자로 바꿔 소수인지 확인 
+    // 1)그 전의 숫자로 나눴을 때 0으로 떨어지는 게 없는지
+    // x를 1~x-1로 나눴을 때 ex. 7은 4로 나눠지지 않고 120은 61이상으로 나눠지지 않는다. 
+    //그러므로 x/2.floor까지만 해도 될듯 
+    //앞에 0이어도 짜피 number가 되어서 상관 없다
+    
+
+    //내 풀이 : 한시간 반 걸림
+    function solution(s){
+        let answer =[]; 
+        for(let x of s){ 
+            a = x.toString().split("").reverse().join("");
+            b = Number(a); 
+            console.log(b);
+            if (b===2) answer+=b;
+            for(let i=2;i<Math.floor(b/2);i++){ 
+                if(b%i===0)break; //한번이라도 나누어지면 나누는 것을 멈춘다
+                else {
+                    answer+=b+",";
+                    break;
+                }
+            }
+        } return answer;
+    }
+
+    // 쌤 풀이1
+    // 숫자 자체를 가지로 while문 
+
+    function isPrime(num){ 
+        if(num===1) return false; 
+        for(let i=2; i<=parseInt(Math.sqrt(num)); i++){ //제곱근 구하기
+            if(num%i===0) return false;//소수가 아니라는 소리
+        } return true;
+    }
+
+    function solution(s){ 
+        let answer=[];
+        for(let x of s){ 
+            let res=0; 
+            while(x){//x가 아직 있으므로 while문 계속 돈다
+                let t=x%10; // 원본의 1의 자리 /원본의 10의 자리 숫자(x/10을 한차례 해서)//x가 백의 자리 밖에 안 남아서 백의 자리
+                res=res*10+t;// 원본의 1의 자리 /원본의1의 자리가 10의 자리+원본의 10의 자리가 1의자리/원본의 1의 자리가 백의 자리 10의 자리가 10의 자리 백의 자리가 1의 자리 
+                x=parseInt(x/10); //원본을 10으로 나눈 값/원본을 또 10으로 나눔 - 즉 백의 자리/ 한자리수밖에 없어서 몫이 없고 while문 끝  
+            }
+            if(isPrime(res)) answer.push(res);//소수가 맞으면 
+        } 
+        return answer;
+    }
+
+    //쌤풀이2 
+    function solution(arr){ 
+        let answer=[];
+        for(let x of arr){ 
+            let res = Number(x.toString().split('').reverse().join(''));
+            if(isPrime(res)) answer.push(res);
+        }
+    }
+
+    //다시 풀어보기 
+    // 1)뒤집기: reverse
+    // 2)소수 구하기: isPrime으로 true, false 가려냄 
+    // 3)isPrime() : true면 나오는 걸로
+
+    function isPrime(num){
+        let answer=true;
+        if(num===1)answer=false
+        else for(let n=2;n<parseInt(Math.sqrt(num));n++){
+            if(num%n===0)answer=false;
+        }return answer;
+
+        }
+
+    
+    function solution(arr){
+        let answer=[]; 
+        for(let x of arr){ 
+            let num = Number(x.toString().split("").reverse().join(""));
+            if(isPrime(num))answer.push(num);           
+        }return answer;
+    }
+
+
+
+    let arr=[32, 55, 62, 20, 250, 370, 200, 30, 100];
+            console.log(solution(arr));
+    </script> 
+    
+</body>
+</html>
