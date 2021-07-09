@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //m번의 수학테스트 : A > B (모든 테스트에서 등수가 앞서야)
+        //1)매회마다의 등수와 사람 일치: 인덱싱 2)비교: 크기 비교 3)짝을 만든다
+
+        //내 풀이 
+        function solution(s){ 
+        
+           let A=[], B=[], C=[], D=[], answer =[A,B,C,D], sum=0;
+           for(let x of s){ 
+               A.push(x[0]);
+               B.push(x[1]);
+               C.push(x[2]);
+               D.push(x[3]);
+           }
+           for(let i=0;i<answer.length-1;i++){ 
+               for(let j=1;answer.length;j++){
+                   for(let n=0;n<4;n++){
+                    if(answer[i][n]<answer[j][n])answer++;
+                   }
+               }
+           }
+           
+        }
+
+        //쌤 풀이: for문을 통해 모든 경우의 수를 확인해보는 brute force
+        function solution(test){
+                let answer=0;
+                m=test.length;
+                n=test[0].length;//사람 몇명인지 (4)
+                for(let i=1; i<=n; i++){ //멘토(사람 몇명인지)의 등수 반복
+                    for(let j=1; j<=n; j++){ //멘티의 등수 반복
+                        let cnt=0;
+                        for(let k=0; k<m; k++){ //[]의 개수 (테스트의 개수) - 세로 
+                            let pi=pj=0;
+                            for(let s=0; s<n; s++){ //가로 
+                                //i,j의 값에 맞춰서 test의 자리가 구해진다
+                                if(test[k][s]===i) pi=s; //k, s번째에 i번 학생이 있으면 그의 등수는 s/가 거꾸로 등수를 통해 위치(멘토의 위치)를 구한다 (pi는 i(멘토)의 위치)
+                                if(test[k][s]===j) pj=s;//멘티의 위치(이름 대체한다고 생각)
+                            }
+                            if(pi<pj) cnt++; //멘토가 멘티보다 등수가 앞서니까 
+                        }
+                        if(cnt===m) answer++; //테스트의 개수만큼 cnt가 모이면 끝
+                    }
+                }
+                return answer;
+            }
+            
+
+    
+    
+
+        let arr = [
+            [3, 4, 1, 2],
+            [4, 3, 2, 1],
+            [3, 1, 4, 2]
+        ];
+        console.log(solution(arr));
+    </script>
+
+</body>
+
+</html>
